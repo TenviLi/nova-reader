@@ -1,4 +1,11 @@
 <p align="center">
+  <strong>简体中文</strong> ·
+  <a href="./README.en.md">English</a> ·
+  <a href="./README.ja.md">日本語</a> ·
+  <a href="./README.ko.md">한국어</a>
+</p>
+
+<p align="center">
   <img src="./apps/web/static/favicon.svg" width="88" height="88" alt="Nova Reader logo" />
 </p>
 
