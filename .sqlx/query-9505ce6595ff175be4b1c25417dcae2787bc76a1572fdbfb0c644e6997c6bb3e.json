@@ -1,0 +1,46 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT\n            b.id as \"id!\",\n            b.title as \"title!\",\n            b.cover_path,\n            b.word_count as \"word_count!\",\n            bp.role::text as \"role!\"\n        FROM book_persons bp\n        JOIN books b ON b.id = bp.book_id\n        WHERE bp.person_id = $1\n        ORDER BY b.title\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id!",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "title!",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "cover_path",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "word_count!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 4,
+        "name": "role!",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      false,
+      null
+    ]
+  },
+  "hash": "9505ce6595ff175be4b1c25417dcae2787bc76a1572fdbfb0c644e6997c6bb3e"
+}

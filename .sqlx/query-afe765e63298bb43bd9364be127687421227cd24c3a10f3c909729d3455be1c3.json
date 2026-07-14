@@ -1,0 +1,60 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT a.selected_text, a.note, a.color, b.title as book_title, b.author as book_author\n           FROM annotation_shares s\n           JOIN annotations a ON a.id = s.annotation_id\n           JOIN books b ON b.id = a.book_id\n           WHERE s.token = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "selected_text",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 1,
+        "name": "note",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "color",
+        "type_info": {
+          "Custom": {
+            "name": "highlight_color",
+            "kind": {
+              "Enum": [
+                "yellow",
+                "green",
+                "blue",
+                "pink",
+                "purple",
+                "orange"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 3,
+        "name": "book_title",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "book_author",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      false,
+      true
+    ]
+  },
+  "hash": "afe765e63298bb43bd9364be127687421227cd24c3a10f3c909729d3455be1c3"
+}

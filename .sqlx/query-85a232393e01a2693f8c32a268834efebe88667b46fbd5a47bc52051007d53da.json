@@ -1,0 +1,25 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO text_chunks (id, book_id, chapter_id, chapter_index, chunk_index, content, embedding)\n                           VALUES ($1, $2, $3, $4, $5, $6, $7)\n                           ON CONFLICT (book_id, chapter_index, chunk_index) DO UPDATE\n                           SET embedding = $7",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Uuid",
+        "Int4",
+        "Int4",
+        "Text",
+        {
+          "Custom": {
+            "name": "vector",
+            "kind": "Simple"
+          }
+        }
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "85a232393e01a2693f8c32a268834efebe88667b46fbd5a47bc52051007d53da"
+}

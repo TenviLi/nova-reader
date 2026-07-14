@@ -1,0 +1,18 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE libraries SET name = $2, description = $3, auto_scan = $4, scan_interval_secs = $5 WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Text",
+        "Bool",
+        "Int8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "7cee96c6796d172a05e0b96684c2674f908a0ddca954f0bc461936d3f0023485"
+}

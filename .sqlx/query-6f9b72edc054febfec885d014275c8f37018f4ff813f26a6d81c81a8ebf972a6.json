@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE reading_progress kept\n               SET progress = GREATEST(kept.progress, old.progress),\n                   current_chapter = CASE\n                     WHEN old.progress > kept.progress\n                     THEN CASE WHEN $4\n                               THEN mapping.chapter_a_index ELSE mapping.chapter_b_index END\n                     ELSE kept.current_chapter\n                   END,\n                   chapter_id = CASE\n                     WHEN old.progress > kept.progress\n                     THEN CASE WHEN $4\n                               THEN mapping.chapter_a_id ELSE mapping.chapter_b_id END\n                     ELSE kept.chapter_id\n                   END,\n                   chapter_index = CASE\n                     WHEN old.progress > kept.progress\n                     THEN CASE WHEN $4\n                               THEN mapping.chapter_a_index ELSE mapping.chapter_b_index END\n                     ELSE kept.chapter_index\n                   END,\n                   reading_time_secs = kept.reading_time_secs + old.reading_time_secs,\n                   last_read_at = GREATEST(kept.last_read_at, old.last_read_at),\n                   updated_at = NOW()\n               FROM reading_progress old\n               JOIN duplicate_chapter_matches mapping\n                 ON mapping.pair_id = $3\n                AND old.chapter_id = CASE WHEN $4\n                                          THEN mapping.chapter_b_id ELSE mapping.chapter_a_id END\n                AND CASE WHEN $4\n                         THEN mapping.chapter_a_id ELSE mapping.chapter_b_id END IS NOT NULL\n                AND mapping.match_type IN ('conservative', 'layout')\n                AND mapping.similarity >= 0.999999\n                AND EXISTS (\n                  SELECT 1\n                  FROM chapter_fingerprints source_fp\n                  JOIN chapter_fingerprints target_fp\n                    ON target_fp.source_content_hash = source_fp.source_content_hash\n                  WHERE source_fp.chapter_id = CASE WHEN $4\n                                                    THEN mapping.chapter_b_id ELSE mapping.chapter_a_id END\n                    AND target_fp.chapter_id = CASE WHEN $4\n                                                   THEN mapping.chapter_a_id ELSE mapping.chapter_b_id END\n                )\n               WHERE kept.book_id = $1\n                 AND old.book_id = $2\n                 AND kept.user_id IS NOT DISTINCT FROM old.user_id",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Uuid",
+        "Bool"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "6f9b72edc054febfec885d014275c8f37018f4ff813f26a6d81c81a8ebf972a6"
+}

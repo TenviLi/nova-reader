@@ -1,0 +1,136 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT id, library_id, task_id, include_semantic, algorithm_version,\n                      status, progress, progress_message, books_total, books_processed,\n                      chapters_processed, candidates_found, pairs_found, exact_pairs,\n                      contained_pairs, semantic_pairs, error_message, started_at,\n                      completed_at, created_at\n               FROM dedup_scan_runs\n               WHERE ($1::uuid IS NULL OR library_id = $1)\n               ORDER BY created_at DESC\n               LIMIT 1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "library_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "task_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "include_semantic",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 4,
+        "name": "algorithm_version",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 5,
+        "name": "status",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "progress",
+        "type_info": "Int2"
+      },
+      {
+        "ordinal": 7,
+        "name": "progress_message",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 8,
+        "name": "books_total",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 9,
+        "name": "books_processed",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 10,
+        "name": "chapters_processed",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 11,
+        "name": "candidates_found",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 12,
+        "name": "pairs_found",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 13,
+        "name": "exact_pairs",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 14,
+        "name": "contained_pairs",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 15,
+        "name": "semantic_pairs",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 16,
+        "name": "error_message",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 17,
+        "name": "started_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 18,
+        "name": "completed_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 19,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "4fca63e35d18dae9549f48a43e19c91020ee714ddf0f97d41be84ab8c4ac6efa"
+}

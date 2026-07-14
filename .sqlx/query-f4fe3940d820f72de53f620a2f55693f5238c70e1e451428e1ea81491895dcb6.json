@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "DELETE FROM duplicate_chapter_matches WHERE pair_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "f4fe3940d820f72de53f620a2f55693f5238c70e1e451428e1ea81491895dcb6"
+}

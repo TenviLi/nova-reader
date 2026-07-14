@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO reading_progress (book_id, chapter_index, scroll_position, progress)\n        VALUES ($1, $2, $3, $4)\n        ON CONFLICT (book_id) DO UPDATE SET\n            chapter_index = $2,\n            scroll_position = $3,\n            progress = $4,\n            updated_at = NOW()\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Int4",
+        "Float8",
+        "Float8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "ada62e3c1b5a18065165ebe0986653b7bd430ed93c3419d0be117c2ba043c6f5"
+}

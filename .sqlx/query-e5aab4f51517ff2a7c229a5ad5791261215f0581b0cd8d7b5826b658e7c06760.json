@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO tasks (id, kind, status, payload, priority)\n                           VALUES ($1, 'parse_file', 'queued', $2, 'normal')",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Jsonb"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "e5aab4f51517ff2a7c229a5ad5791261215f0581b0cd8d7b5826b658e7c06760"
+}

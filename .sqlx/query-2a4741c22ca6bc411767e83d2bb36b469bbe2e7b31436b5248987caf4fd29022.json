@@ -1,0 +1,24 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO book_fingerprints\n               (book_id, normalization_version, layout_normalization_version,\n                algorithm_version, source_content_hash,\n                conservative_hash, layout_hash, chapter_count, informative_chapter_count,\n                char_count, text_integrity_bps, computed_at)\n               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW())\n               ON CONFLICT (book_id) DO UPDATE SET\n                 normalization_version = EXCLUDED.normalization_version,\n                 layout_normalization_version = EXCLUDED.layout_normalization_version,\n                 algorithm_version = EXCLUDED.algorithm_version,\n                 source_content_hash = EXCLUDED.source_content_hash,\n                 conservative_hash = EXCLUDED.conservative_hash,\n                 layout_hash = EXCLUDED.layout_hash,\n                 chapter_count = EXCLUDED.chapter_count,\n                 informative_chapter_count = EXCLUDED.informative_chapter_count,\n                 char_count = EXCLUDED.char_count,\n                 text_integrity_bps = EXCLUDED.text_integrity_bps,\n                 computed_at = NOW()",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Int4",
+        "Int4",
+        "Int8",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "2a4741c22ca6bc411767e83d2bb36b469bbe2e7b31436b5248987caf4fd29022"
+}

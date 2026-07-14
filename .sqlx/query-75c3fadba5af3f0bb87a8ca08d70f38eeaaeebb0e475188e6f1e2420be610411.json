@@ -1,0 +1,20 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO dedup_scan_runs\n               (id, library_id, requested_by, task_id, include_semantic,\n                algorithm_version, books_total)\n               VALUES ($1, $2, $3, $4, $5, $6, $7)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Uuid",
+        "Uuid",
+        "Bool",
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "75c3fadba5af3f0bb87a8ca08d70f38eeaaeebb0e475188e6f1e2420be610411"
+}

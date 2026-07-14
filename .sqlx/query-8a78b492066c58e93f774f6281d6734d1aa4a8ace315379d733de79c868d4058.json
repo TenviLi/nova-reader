@@ -1,0 +1,103 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT COUNT(*) OVER() AS \"total_count!\",\n                   d.id, d.library_id, d.matched_book_id,\n                   b.title AS \"matched_book_title!\",\n                   b.author AS matched_book_author,\n                   b.format::text AS \"matched_book_format!\",\n                   d.source_kind AS \"source_kind!\",\n                   d.source_path AS \"source_path!\",\n                   d.file_hash AS \"file_hash!\",\n                   d.file_size_bytes, d.first_seen_at, d.last_seen_at,\n                   d.seen_count\n            FROM exact_file_discoveries d\n            JOIN books b ON b.id = d.matched_book_id\n            WHERE ($1::uuid IS NULL OR d.library_id = $1)\n              AND (\n                $2::uuid[] IS NULL\n                OR (d.library_id = ANY($2) AND b.library_id = ANY($2))\n              )\n            ORDER BY d.last_seen_at DESC, d.id DESC\n            LIMIT $3 OFFSET $4\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "total_count!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 1,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "library_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "matched_book_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 4,
+        "name": "matched_book_title!",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "matched_book_author",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "matched_book_format!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 7,
+        "name": "source_kind!",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 8,
+        "name": "source_path!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 9,
+        "name": "file_hash!",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 10,
+        "name": "file_size_bytes",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 11,
+        "name": "first_seen_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 12,
+        "name": "last_seen_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 13,
+        "name": "seen_count",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "UuidArray",
+        "Int8",
+        "Int8"
+      ]
+    },
+    "nullable": [
+      null,
+      false,
+      true,
+      false,
+      false,
+      true,
+      null,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "8a78b492066c58e93f774f6281d6734d1aa4a8ace315379d733de79c868d4058"
+}

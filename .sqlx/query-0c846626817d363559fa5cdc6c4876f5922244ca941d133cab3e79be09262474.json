@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE duplicate_pairs\n               SET review_status = 'confirmed', resolved = TRUE,\n                   resolution = $2, recommended_primary_id = $3,\n                   resolved_by = $4, resolved_at = NOW(), updated_at = NOW()\n               WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "0c846626817d363559fa5cdc6c4876f5922244ca941d133cab3e79be09262474"
+}

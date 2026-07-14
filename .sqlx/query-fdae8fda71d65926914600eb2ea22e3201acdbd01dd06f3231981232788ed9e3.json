@@ -1,0 +1,106 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            WITH upserted AS (\n                INSERT INTO exact_file_discoveries (\n                    library_id, matched_book_id, source_kind, source_key,\n                    source_path, file_hash, file_size_bytes, discovered_by\n                )\n                SELECT b.library_id, b.id, $2, $3, $4, $5, $6, $7\n                FROM books b\n                WHERE b.id = $1\n                ON CONFLICT (matched_book_id, source_kind, source_key, file_hash)\n                DO UPDATE SET\n                    library_id = EXCLUDED.library_id,\n                    source_path = EXCLUDED.source_path,\n                    file_size_bytes = EXCLUDED.file_size_bytes,\n                    discovered_by = EXCLUDED.discovered_by,\n                    last_seen_at = NOW(),\n                    seen_count = exact_file_discoveries.seen_count + 1\n                RETURNING id, library_id, matched_book_id, source_kind,\n                          source_path, file_hash, file_size_bytes,\n                          first_seen_at, last_seen_at, seen_count\n            )\n            SELECT 1::bigint AS \"total_count!\",\n                   d.id, d.library_id, d.matched_book_id,\n                   b.title AS \"matched_book_title!\",\n                   b.author AS matched_book_author,\n                   b.format::text AS \"matched_book_format!\",\n                   d.source_kind AS \"source_kind!\",\n                   d.source_path AS \"source_path!\",\n                   d.file_hash AS \"file_hash!\",\n                   d.file_size_bytes, d.first_seen_at, d.last_seen_at,\n                   d.seen_count\n            FROM upserted d\n            JOIN books b ON b.id = d.matched_book_id\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "total_count!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 1,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "library_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "matched_book_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 4,
+        "name": "matched_book_title!",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "matched_book_author",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "matched_book_format!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 7,
+        "name": "source_kind!",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 8,
+        "name": "source_path!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 9,
+        "name": "file_hash!",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 10,
+        "name": "file_size_bytes",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 11,
+        "name": "first_seen_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 12,
+        "name": "last_seen_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 13,
+        "name": "seen_count",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Varchar",
+        "Text",
+        "Varchar",
+        "Int8",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      null,
+      false,
+      true,
+      false,
+      false,
+      true,
+      null,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "fdae8fda71d65926914600eb2ea22e3201acdbd01dd06f3231981232788ed9e3"
+}

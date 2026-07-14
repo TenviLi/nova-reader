@@ -1,0 +1,60 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT\n            p.id as \"id!\",\n            p.name as \"name!\",\n            p.original_name,\n            p.image_path,\n            COALESCE(\n                (SELECT array_agg(DISTINCT bp.role::text)\n                 FROM book_persons bp WHERE bp.person_id = p.id),\n                ARRAY[]::text[]\n            ) as \"roles!\",\n            COUNT(DISTINCT bp2.book_id)::int as \"book_count!\",\n            COALESCE(SUM(b.word_count), 0)::bigint as \"total_word_count!\"\n        FROM persons p\n        LEFT JOIN book_persons bp2 ON bp2.person_id = p.id\n        LEFT JOIN books b ON b.id = bp2.book_id\n        WHERE ($1 = '' OR p.name ILIKE '%' || $1 || '%' OR p.original_name ILIKE '%' || $1 || '%')\n          AND ($2 = '' OR EXISTS (SELECT 1 FROM book_persons bp3 WHERE bp3.person_id = p.id AND bp3.role::text = $2))\n        GROUP BY p.id\n        ORDER BY book_count DESC, p.name ASC\n        LIMIT $3\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id!",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "name!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "original_name",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "image_path",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "roles!",
+        "type_info": "TextArray"
+      },
+      {
+        "ordinal": 5,
+        "name": "book_count!",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 6,
+        "name": "total_word_count!",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Int8"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      true,
+      null,
+      null,
+      null
+    ]
+  },
+  "hash": "539d230779aaa2e9d6b9f59127f296b09325ed5f3558d511e48fdc8f7106230c"
+}

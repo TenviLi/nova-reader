@@ -1,0 +1,42 @@
+[package]
+name = "nova-ingest"
+description = "File ingestion, parsing, and chapter extraction for Nova Reader"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+nova-core = { path = "../nova-core" }
+
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+tracing = { workspace = true }
+async-trait = { workspace = true }
+
+# File system watching
+notify = { workspace = true }
+notify-debouncer-mini = { workspace = true }
+walkdir = { workspace = true }
+
+# Text processing
+regex = { workspace = true }
+unicode-segmentation = { workspace = true }
+unicode-normalization = "0.1"
+
+# Document parsing (91+ formats via Kreuzberg)
+kreuzberg = { workspace = true }
+
+# File hashing
+sha2 = "0.10"
+hex = "0.4"
+
+# Glob matching (replaces hand-rolled implementation)
+glob-match = "0.2"
+
+# EPUB cover extraction
+zip = "2.2"
+anyhow = "1.0"
+thiserror = { workspace = true }

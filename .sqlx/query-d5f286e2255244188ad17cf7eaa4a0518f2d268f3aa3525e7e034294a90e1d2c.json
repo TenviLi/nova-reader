@@ -1,0 +1,46 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT id, format::text AS \"format!\", file_size_bytes,\n                      chapter_count, word_count\n               FROM books\n               WHERE status NOT IN ('archived', 'duplicate')\n                 AND ($1::uuid IS NULL OR library_id = $1)\n               ORDER BY id",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "format!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "file_size_bytes",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 3,
+        "name": "chapter_count",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "word_count",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      null,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "d5f286e2255244188ad17cf7eaa4a0518f2d268f3aa3525e7e034294a90e1d2c"
+}

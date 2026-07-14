@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT content FROM chapters WHERE book_id = $1 AND \"index\" = $2",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "content",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "b83d905eeda4e20306ae1a97152d0c2e01bfcde3f2d8057920e8728b8ad1465f"
+}

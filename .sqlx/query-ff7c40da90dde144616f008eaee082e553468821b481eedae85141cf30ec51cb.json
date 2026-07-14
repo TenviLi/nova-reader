@@ -1,0 +1,76 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT id, user_id, book_id, chapter_id, chapter_index,\n                      current_chapter, progress, scroll_position,\n                      reading_time_secs, last_read_at\n               FROM reading_progress\n               WHERE book_id = ANY($1)\n               ORDER BY id\n               FOR UPDATE",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "user_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "book_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "chapter_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 4,
+        "name": "chapter_index",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 5,
+        "name": "current_chapter",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 6,
+        "name": "progress",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 7,
+        "name": "scroll_position",
+        "type_info": "Float8"
+      },
+      {
+        "ordinal": 8,
+        "name": "reading_time_secs",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 9,
+        "name": "last_read_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "UuidArray"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      true,
+      true,
+      false,
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "ff7c40da90dde144616f008eaee082e553468821b481eedae85141cf30ec51cb"
+}

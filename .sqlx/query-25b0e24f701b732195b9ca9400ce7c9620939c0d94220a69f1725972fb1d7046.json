@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT id AS \"id!\"\n                   FROM book_works\n                   WHERE id = ANY($1)\n                   ORDER BY id\n                   FOR UPDATE",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id!",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "UuidArray"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "25b0e24f701b732195b9ca9400ce7c9620939c0d94220a69f1725972fb1d7046"
+}

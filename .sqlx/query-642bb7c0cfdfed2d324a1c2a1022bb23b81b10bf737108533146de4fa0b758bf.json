@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT COUNT(*) AS \"count!\"\n               FROM libraries library\n               WHERE library.id = ANY($1)\n                 AND (\n                   EXISTS (\n                     SELECT 1 FROM library_permissions direct\n                     WHERE direct.library_id = library.id\n                       AND direct.user_id = $2\n                       AND (direct.can_write OR direct.can_manage)\n                   )\n                   OR EXISTS (\n                     SELECT 1\n                     FROM library_group_permissions grouped\n                     JOIN group_members membership\n                       ON membership.group_id = grouped.group_id\n                     WHERE grouped.library_id = library.id\n                       AND membership.user_id = $2\n                       AND (grouped.can_write OR grouped.can_manage)\n                   )\n                 )",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "count!",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "UuidArray",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "642bb7c0cfdfed2d324a1c2a1022bb23b81b10bf737108533146de4fa0b758bf"
+}

@@ -1,0 +1,40 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT scan.id, task.id AS \"task_id!\", task.payload,\n                      scan.include_semantic\n               FROM dedup_scan_runs scan\n               JOIN tasks task ON task.id = scan.task_id\n               WHERE scan.library_id IS NOT DISTINCT FROM $1\n                 AND scan.status = 'queued'\n                 AND task.status = 'queued'::task_status\n               ORDER BY scan.created_at DESC\n               LIMIT 1\n               FOR UPDATE OF scan, task",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "task_id!",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "payload",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 3,
+        "name": "include_semantic",
+        "type_info": "Bool"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "2abea8337d5f183613763b88090791f1aa1b06cf375aef7d31a7e76fc42c5132"
+}

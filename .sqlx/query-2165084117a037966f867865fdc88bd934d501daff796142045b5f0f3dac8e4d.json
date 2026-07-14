@@ -1,0 +1,84 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT id, book_id, chapter_index, start_offset, end_offset,\n               selected_text, note, color, created_at\n        FROM annotations\n        WHERE book_id = $1\n        ORDER BY chapter_index, start_offset\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "book_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "chapter_index",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "start_offset",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 4,
+        "name": "end_offset",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 5,
+        "name": "selected_text",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 6,
+        "name": "note",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 7,
+        "name": "color",
+        "type_info": {
+          "Custom": {
+            "name": "highlight_color",
+            "kind": {
+              "Enum": [
+                "yellow",
+                "green",
+                "blue",
+                "pink",
+                "purple",
+                "orange"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 8,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "2165084117a037966f867865fdc88bd934d501daff796142045b5f0f3dac8e4d"
+}

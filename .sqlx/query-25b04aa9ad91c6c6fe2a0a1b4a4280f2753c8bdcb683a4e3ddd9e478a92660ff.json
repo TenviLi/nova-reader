@@ -1,0 +1,97 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT b.id, b.title, b.author, b.format, b.word_count, b.status, b.progress, b.cover_path\n        FROM books b\n        INNER JOIN collection_books cb ON cb.book_id = b.id\n        WHERE cb.collection_id = $1\n        ORDER BY cb.added_at DESC\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "title",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "author",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "format",
+        "type_info": {
+          "Custom": {
+            "name": "book_format",
+            "kind": {
+              "Enum": [
+                "txt",
+                "epub",
+                "pdf",
+                "docx",
+                "markdown",
+                "html"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 4,
+        "name": "word_count",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 5,
+        "name": "status",
+        "type_info": {
+          "Custom": {
+            "name": "book_status",
+            "kind": {
+              "Enum": [
+                "pending",
+                "processing",
+                "ready",
+                "duplicate",
+                "failed",
+                "archived",
+                "available",
+                "unavailable",
+                "completed",
+                "deleted",
+                "reading"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 6,
+        "name": "progress",
+        "type_info": "Float4"
+      },
+      {
+        "ordinal": 7,
+        "name": "cover_path",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true
+    ]
+  },
+  "hash": "25b04aa9ad91c6c6fe2a0a1b4a4280f2753c8bdcb683a4e3ddd9e478a92660ff"
+}

@@ -1,0 +1,18 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO entities (id, name, entity_type, description, book_id)\n                   VALUES ($1, $2, $3, $4, $5)\n                   ON CONFLICT (name, book_id) DO UPDATE\n                   SET description = COALESCE(NULLIF($4, ''), entities.description)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Varchar",
+        "Text",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "f407abc5963c4be6f27d0f7606395dc6bd134d78b6c68daeb85449d12d6a7db2"
+}

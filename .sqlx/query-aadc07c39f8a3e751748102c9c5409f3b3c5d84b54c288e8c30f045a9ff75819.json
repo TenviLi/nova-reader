@@ -1,0 +1,19 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO chapters (id, book_id, title, content, chapter_index, word_count)\n                   VALUES ($1, $2, $3, $4, $5, $6)\n                   ON CONFLICT (book_id, chapter_index) DO UPDATE\n                   SET content = $4, word_count = $6, title = $3, updated_at = NOW()",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Varchar",
+        "Text",
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "aadc07c39f8a3e751748102c9c5409f3b3c5d84b54c288e8c30f045a9ff75819"
+}

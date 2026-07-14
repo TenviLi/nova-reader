@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO duplicate_chapter_matches\n               (pair_id, chapter_a_id, chapter_b_id, chapter_a_index,\n                chapter_b_index, match_type, similarity, shared_fingerprints,\n                alignment_group, segment_ordinal,\n                chapter_a_start, chapter_a_end, chapter_b_start, chapter_b_end,\n                matched_chars)\n               VALUES ($1, $2, $3, $4, $5, $6, $7, $8,\n                       $9, $10, $11, $12, $13, $14, $15)\n               ON CONFLICT DO NOTHING",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Uuid",
+        "Int4",
+        "Int4",
+        "Varchar",
+        "Float8",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "db37f253aff9952226ae190c4c28c834247656378f814b7b637988077187bd81"
+}

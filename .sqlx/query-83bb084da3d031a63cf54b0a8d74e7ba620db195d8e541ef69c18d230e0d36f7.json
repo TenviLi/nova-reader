@@ -1,0 +1,40 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT id, canonical_title, canonical_author, primary_book_id\n                   FROM book_works\n                   WHERE id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "canonical_title",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "canonical_author",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "primary_book_id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      true
+    ]
+  },
+  "hash": "83bb084da3d031a63cf54b0a8d74e7ba620db195d8e541ef69c18d230e0d36f7"
+}

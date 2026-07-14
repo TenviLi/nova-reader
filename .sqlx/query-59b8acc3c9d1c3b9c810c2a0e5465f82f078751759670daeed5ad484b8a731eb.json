@@ -1,0 +1,30 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT a.id AS a, b.id AS b\n               FROM books a JOIN books b ON a.id < b.id AND a.file_hash = b.file_hash\n               WHERE a.id = ANY($1) AND b.id = ANY($1) AND a.file_hash != ''\n                 AND ($2::uuid[] IS NULL OR a.id = ANY($2) OR b.id = ANY($2))\n               LIMIT $3",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "a",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "b",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "UuidArray",
+        "UuidArray",
+        "Int8"
+      ]
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "59b8acc3c9d1c3b9c810c2a0e5465f82f078751759670daeed5ad484b8a731eb"
+}

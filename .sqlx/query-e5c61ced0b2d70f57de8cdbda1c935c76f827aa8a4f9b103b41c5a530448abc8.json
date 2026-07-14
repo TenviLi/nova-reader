@@ -1,0 +1,19 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE reading_progress\n                           SET book_id = $2, chapter_id = $3,\n                               current_chapter = $4, chapter_index = $4,\n                               cfi = NULL, progress = $5, scroll_position = $6,\n                               updated_at = NOW()\n                           WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Uuid",
+        "Int4",
+        "Float8",
+        "Float8"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "e5c61ced0b2d70f57de8cdbda1c935c76f827aa8a4f9b103b41c5a530448abc8"
+}

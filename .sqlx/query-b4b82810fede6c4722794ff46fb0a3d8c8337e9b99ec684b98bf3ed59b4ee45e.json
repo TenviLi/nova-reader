@@ -1,0 +1,47 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT e.id, e.name, e.entity_type, em.start_offset, em.end_offset\n           FROM entity_mentions em\n           JOIN entities e ON e.id = em.entity_id\n           WHERE em.book_id = $1 AND em.chapter_index = $2\n           ORDER BY em.start_offset",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "entity_type",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "start_offset",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "end_offset",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "b4b82810fede6c4722794ff46fb0a3d8c8337e9b99ec684b98bf3ed59b4ee45e"
+}

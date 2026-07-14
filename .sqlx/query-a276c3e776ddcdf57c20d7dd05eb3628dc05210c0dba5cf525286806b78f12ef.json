@@ -1,0 +1,25 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT bf.book_id AS \"book_id!\"\n               FROM book_fingerprints bf\n               JOIN books b ON b.id = bf.book_id\n               WHERE bf.book_id = ANY($1)\n                 AND bf.algorithm_version = $2\n                 AND bf.normalization_version = $3\n                 AND bf.computed_at >= b.updated_at\n                 AND bf.chapter_count = (\n                     SELECT COUNT(*)::integer FROM chapters c WHERE c.book_id = bf.book_id\n                 )\n                 AND bf.chapter_count = (\n                     SELECT COUNT(*)::integer\n                     FROM chapter_fingerprints cf\n                     WHERE cf.book_id = bf.book_id AND cf.normalization_version = $3\n                 )\n                 AND (\n                     SELECT COALESCE(SUM(cf.winnowing_count), 0)::bigint\n                     FROM chapter_fingerprints cf WHERE cf.book_id = bf.book_id\n                 ) = (\n                     SELECT COUNT(*)::bigint\n                     FROM passage_fingerprints pf\n                     WHERE pf.book_id = bf.book_id AND pf.normalization_version = $4\n                 )",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "book_id!",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "UuidArray",
+        "Int4",
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "a276c3e776ddcdf57c20d7dd05eb3628dc05210c0dba5cf525286806b78f12ef"
+}

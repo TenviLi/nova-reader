@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE duplicate_pairs AS pair\n           SET stale = TRUE, updated_at = NOW()\n           FROM dedup_scan_runs AS current_scan\n           WHERE (\n             (pair.book_a_id = ANY($2) AND pair.book_b_id = ANY($1))\n             OR (pair.book_b_id = ANY($2) AND pair.book_a_id = ANY($1))\n           ) AND current_scan.id = $3\n             AND pair.scan_run_id IS DISTINCT FROM $3\n             -- A confirmed secondary version is intentionally excluded from\n             -- candidate generation after resolution. Its human decision is\n             -- therefore preserved only while the same algorithm and the same\n             -- source-backed fingerprints still support it. Algorithm upgrades\n             -- or invalidated/missing caches must supersede the old evidence.\n             AND NOT (\n               pair.stale = FALSE\n               AND pair.resolved = TRUE\n               AND pair.review_status = 'confirmed'\n               AND pair.algorithm_version = current_scan.algorithm_version\n               AND pair.evidence->>'algorithm_version'\n                   = current_scan.algorithm_version::text\n               AND EXISTS (\n                 SELECT 1\n                 FROM book_fingerprints AS fingerprint_a\n                 JOIN book_fingerprints AS fingerprint_b ON TRUE\n                 WHERE fingerprint_a.book_id = pair.book_a_id\n                   AND fingerprint_b.book_id = pair.book_b_id\n                   AND fingerprint_a.algorithm_version = current_scan.algorithm_version\n                   AND fingerprint_b.algorithm_version = current_scan.algorithm_version\n                   AND fingerprint_a.layout_hash = pair.evidence->>'book_a_layout_hash'\n                   AND fingerprint_b.layout_hash = pair.evidence->>'book_b_layout_hash'\n               )\n             )",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "UuidArray",
+        "UuidArray",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "1831ae447db603e20e952032a573b2ce6447437d4aed074ba6304cb4366d15c5"
+}

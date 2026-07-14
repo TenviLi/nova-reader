@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT pg_advisory_lock($1::integer, 0)",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "pg_advisory_lock",
+        "type_info": "Void"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "a6d894a7bf6e83ba04bc0d3215467465b3c361222ef67cbd8c6f24bb8b42902a"
+}

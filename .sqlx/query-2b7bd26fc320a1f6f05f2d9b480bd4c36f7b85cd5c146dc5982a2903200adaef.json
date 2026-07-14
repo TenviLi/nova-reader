@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO tasks\n               (id, kind, status, priority, payload, category, max_retries, scheduled_at)\n               VALUES ($1, 'deduplicate'::task_kind, 'queued'::task_status,\n                       '1'::task_priority, $2, 'preprocess', 3, NOW())",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Jsonb"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "2b7bd26fc320a1f6f05f2d9b480bd4c36f7b85cd5c146dc5982a2903200adaef"
+}

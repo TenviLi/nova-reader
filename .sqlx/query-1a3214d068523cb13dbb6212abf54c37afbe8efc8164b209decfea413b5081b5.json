@@ -1,0 +1,52 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT bf.book_id, bf.normalization_version, bf.algorithm_version,\n                      bf.source_content_hash, bf.layout_hash, bf.chapter_count\n               FROM book_fingerprints bf\n               WHERE bf.book_id = ANY($1)\n               ORDER BY bf.book_id\n               FOR UPDATE OF bf",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "book_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "normalization_version",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "algorithm_version",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "source_content_hash",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "layout_hash",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 5,
+        "name": "chapter_count",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "UuidArray"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "1a3214d068523cb13dbb6212abf54c37afbe8efc8164b209decfea413b5081b5"
+}

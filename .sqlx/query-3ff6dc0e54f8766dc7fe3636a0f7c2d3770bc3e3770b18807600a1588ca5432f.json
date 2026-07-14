@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE books\n           SET custom_fields = COALESCE(custom_fields, '{}'::jsonb) || $2::jsonb,\n               updated_at = NOW()\n           WHERE id = $1\n           RETURNING custom_fields",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "custom_fields",
+        "type_info": "Jsonb"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Jsonb"
+      ]
+    },
+    "nullable": [
+      true
+    ]
+  },
+  "hash": "3ff6dc0e54f8766dc7fe3636a0f7c2d3770bc3e3770b18807600a1588ca5432f"
+}

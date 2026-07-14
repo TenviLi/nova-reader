@@ -1,0 +1,48 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT secondary_chapter.chapter_index AS \"chapter_index!\",\n                      secondary_chapter.content AS \"secondary_content!\",\n                      secondary_fp.source_content_hash\n                        AS \"secondary_source_content_hash!\",\n                      primary_chapter.content AS \"primary_content!\",\n                      primary_fp.source_content_hash\n                        AS \"primary_source_content_hash!\"\n               FROM duplicate_pairs pair\n               JOIN duplicate_chapter_matches mapping ON mapping.pair_id = pair.id\n               JOIN chapters secondary_chapter\n                 ON secondary_chapter.id = CASE\n                      WHEN pair.book_a_id = $2 THEN mapping.chapter_a_id\n                      ELSE mapping.chapter_b_id\n                    END\n               JOIN chapters primary_chapter\n                 ON primary_chapter.id = CASE\n                      WHEN pair.book_a_id = $3 THEN mapping.chapter_a_id\n                      ELSE mapping.chapter_b_id\n                    END\n               JOIN chapter_fingerprints secondary_fp\n                 ON secondary_fp.chapter_id = secondary_chapter.id\n               JOIN chapter_fingerprints primary_fp\n                 ON primary_fp.chapter_id = primary_chapter.id\n               JOIN books secondary_book ON secondary_book.id = secondary_chapter.book_id\n               WHERE pair.id = $1\n                 AND pair.resolved = TRUE\n                 AND pair.review_status = 'confirmed'\n                 AND pair.recommended_primary_id = $3\n                 AND (\n                   (pair.book_a_id = $2 AND pair.book_b_id = $3)\n                   OR (pair.book_a_id = $3 AND pair.book_b_id = $2)\n                 )\n                 AND secondary_chapter.book_id = $2\n                 AND primary_chapter.book_id = $3\n                 AND secondary_book.status = 'duplicate'::book_status\n                 AND secondary_fp.source_content_hash = primary_fp.source_content_hash\n                 AND (\n                   (mapping.match_type = 'conservative'\n                    AND secondary_fp.conservative_hash = primary_fp.conservative_hash)\n                   OR (mapping.match_type = 'layout'\n                    AND secondary_fp.layout_hash = primary_fp.layout_hash)\n                 )\n               ORDER BY secondary_chapter.chapter_index",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "chapter_index!",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "secondary_content!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "secondary_source_content_hash!",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "primary_content!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "primary_source_content_hash!",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "7c2343bbc869beacb393f59d6cf2346b48ec896c690f6e4416e8471120fb28ae"
+}

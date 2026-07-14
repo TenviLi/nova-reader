@@ -1,0 +1,47 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT id, title, content, chapter_index, word_count\n           FROM chapters\n           WHERE book_id = $1 AND chapter_index = $2",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "title",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "content",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "chapter_index",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "word_count",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      true,
+      false
+    ]
+  },
+  "hash": "2a35a4b19c82da1d1c7678f678c2cafebbb1473e9bdd900cea1a5486e2045d75"
+}

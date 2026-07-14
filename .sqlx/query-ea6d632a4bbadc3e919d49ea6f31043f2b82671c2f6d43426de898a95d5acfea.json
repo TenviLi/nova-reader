@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO annotation_shares (annotation_id, token, created_at)\n           VALUES ($1, $2, NOW())\n           ON CONFLICT (annotation_id) DO UPDATE SET token = $2, created_at = NOW()",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "ea6d632a4bbadc3e919d49ea6f31043f2b82671c2f6d43426de898a95d5acfea"
+}

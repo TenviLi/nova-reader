@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE books SET status = 'unavailable', updated_at = NOW()\n                   WHERE library_id = $1 AND file_path IS NOT NULL\n                   AND file_path != ALL($2) AND status = 'available'",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "TextArray"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "f111dfe1c812d2741e2dc19e9731bd9cae05277b915d9f7c4ef149c88cbaccc3"
+}

@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT DISTINCT member.id AS \"id!\"\n               FROM books pair_book\n               JOIN books member ON member.work_id = pair_book.work_id\n               WHERE pair_book.id = ANY($1) AND pair_book.work_id IS NOT NULL",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id!",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "UuidArray"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "3dc12e6bcdfc49e5cf35310546a3ebb0f209b8a46a1dca3884acfb15fde3727d"
+}

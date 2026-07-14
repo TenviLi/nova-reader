@@ -1,0 +1,75 @@
+[package]
+name = "nova-api"
+description = "HTTP API server for Nova Reader (Axum)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "nova-api"
+path = "src/main.rs"
+
+[dependencies]
+nova-core = { path = "../nova-core" }
+nova-embed = { path = "../nova-embed" }
+nova-graph = { path = "../nova-graph" }
+nova-ingest = { path = "../nova-ingest" }
+nova-search = { path = "../nova-search" }
+
+# Web framework
+axum = { workspace = true }
+axum-extra = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+hyper = { workspace = true }
+http-body-util = { workspace = true }
+tokio = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Database
+sqlx = { workspace = true }
+redis = { workspace = true }
+
+# Utilities
+uuid = { workspace = true }
+chrono = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+dotenvy = { workspace = true }
+
+# Security
+jsonwebtoken = { workspace = true }
+argon2 = { workspace = true }
+rand = { workspace = true }
+sha2 = "0.10"
+hex = "0.4"
+
+# Async
+futures = { workspace = true }
+tokio-stream = { workspace = true }
+async-trait = { workspace = true }
+async-stream = { workspace = true }
+
+# AI SDK (OpenAI-compatible for DeepSeek/OpenRouter)
+async-openai = { workspace = true }
+# HTTP client (for embedding service)
+reqwest = { workspace = true }
+
+# Regex (series detection)
+regex = { workspace = true }
+similar = { workspace = true }
+
+# Encoding
+base64 = { workspace = true }
+
+# Rate limiting
+governor = "0.8"
+tower_governor = "0.5"
+
+# URL encoding (for OPDS search params)
+urlencoding = "2"

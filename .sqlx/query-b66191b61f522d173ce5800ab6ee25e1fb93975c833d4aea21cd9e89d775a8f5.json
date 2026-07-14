@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE books\n               SET status = 'duplicate'::book_status,\n                   metadata = metadata || jsonb_build_object(\n                       'duplicate_of', $2::uuid::text,\n                       'dedup_pair_id', $3::uuid::text,\n                       'dedup_resolved_at', NOW()::text\n                   ),\n                   updated_at = NOW()\n               WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "b66191b61f522d173ce5800ab6ee25e1fb93975c833d4aea21cd9e89d775a8f5"
+}

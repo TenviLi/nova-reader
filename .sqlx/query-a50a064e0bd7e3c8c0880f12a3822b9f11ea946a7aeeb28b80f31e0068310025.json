@@ -1,0 +1,52 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT book_id, source_content_hash, conservative_hash, layout_hash, char_count,\n                      text_integrity_bps AS \"text_integrity_bps!\"\n               FROM book_fingerprints WHERE book_id = ANY($1)",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "book_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "source_content_hash",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "conservative_hash",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "layout_hash",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "char_count",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 5,
+        "name": "text_integrity_bps!",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "UuidArray"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true
+    ]
+  },
+  "hash": "a50a064e0bd7e3c8c0880f12a3822b9f11ea946a7aeeb28b80f31e0068310025"
+}

@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE dedup_scan_runs\n               SET status = 'running', started_at = COALESCE(started_at, NOW()),\n                   algorithm_version = $2,\n                   error_message = NULL, completed_at = NULL, updated_at = NOW()\n               WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "e9b351b61f2a509e6342f18848dc32f35cf9e888997ff97ed749086b9eb2bf97"
+}

@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE shelf_books SET sort_order = $3 WHERE shelf_id = $1 AND book_id = $2",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "c49fb3f02fab358bb0e5a9628bca89b1ce5d5132fa5ac3fef43fcaddc693cfa6"
+}

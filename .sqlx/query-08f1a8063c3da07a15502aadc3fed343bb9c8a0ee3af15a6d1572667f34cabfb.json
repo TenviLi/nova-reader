@@ -1,0 +1,24 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT member.id AS \"id!\"\n               FROM books member\n               WHERE member.work_id = ANY($1)\n                 AND member.id <> $2\n                 AND NOT EXISTS (\n                   SELECT 1 FROM duplicate_pairs verified\n                   WHERE verified.book_a_id = LEAST(member.id, $2)\n                     AND verified.book_b_id = GREATEST(member.id, $2)\n                     AND verified.stale = FALSE\n                     AND (verified.id = $3 OR verified.review_status = 'confirmed')\n                 )\n               LIMIT 1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id!",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "UuidArray",
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "08f1a8063c3da07a15502aadc3fed343bb9c8a0ee3af15a6d1572667f34cabfb"
+}

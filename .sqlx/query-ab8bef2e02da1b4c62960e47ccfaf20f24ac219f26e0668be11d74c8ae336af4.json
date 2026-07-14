@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        INSERT INTO libraries (id, name, root_path, description, auto_scan, scan_interval_secs,\n                               include_extensions, exclude_patterns, compute_hashes, scan_status)\n        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'idle')\n        ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Varchar",
+        "Text",
+        "Bool",
+        "Int8",
+        "Jsonb",
+        "Jsonb",
+        "Bool"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "ab8bef2e02da1b4c62960e47ccfaf20f24ac219f26e0668be11d74c8ae336af4"
+}

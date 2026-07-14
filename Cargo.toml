@@ -1,0 +1,121 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/nova-core",
+    "crates/nova-api",
+    "crates/nova-ingest",
+    "crates/nova-search",
+    "crates/nova-graph",
+    "crates/nova-translate",
+    "crates/nova-embed",
+    "crates/nova-worker",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.82"
+license = "MIT"
+authors = ["tenvi"]
+repository = "https://github.com/tenvi/nova-reader"
+
+[workspace.dependencies]
+# Async Runtime & Web Framework
+tokio = { version = "1.44", features = ["full"] }
+axum = { version = "0.8", features = ["ws", "multipart"] }
+axum-extra = { version = "0.10", features = ["typed-header", "cookie"] }
+tower = { version = "0.5", features = ["full"] }
+tower-http = { version = "0.6", features = ["cors", "trace", "compression-gzip", "limit", "timeout"] }
+hyper = { version = "1.6", features = ["full"] }
+http-body-util = "0.1"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Database
+sqlx = { version = "0.8", features = ["runtime-tokio", "tls-rustls", "postgres", "uuid", "chrono", "json", "bigdecimal", "migrate"] }
+redis = { version = "0.27", features = ["tokio-comp", "connection-manager"] }
+
+# Vector & Graph
+qdrant-client = "1.18"
+neo4rs = "0.8"
+
+# Document Parsing (91+ formats: PDF, EPUB, DOCX, HTML, images, etc.)
+kreuzberg = { version = "4.9", features = ["pdf", "office", "html", "archives", "language-detection", "chunking"] }
+
+# Utilities
+uuid = { version = "1.11", features = ["v4", "v7", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "2.0"
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+dotenvy = "0.15"
+config = "0.14"
+
+# Security
+argon2 = "0.5"
+jsonwebtoken = "9.3"
+rand = "0.8"
+
+# File System
+notify = "7.0"
+notify-debouncer-mini = "0.5"
+walkdir = "2.5"
+tempfile = "3.14"
+sha2 = "0.10"
+blake3 = "1.5"
+
+# Text Processing
+regex = "1.11"
+unicode-segmentation = "1.12"
+similar = "2.7"
+pulldown-cmark = "0.12"
+
+# HTTP Client
+reqwest = { version = "0.12", features = ["json", "stream"] }
+
+# AI SDK (OpenAI-compatible for DeepSeek/OpenRouter)
+async-openai = "0.27"
+
+# Encoding
+base64 = "0.22"
+
+# Async utilities
+futures = "0.3"
+tokio-stream = { version = "0.1", features = ["sync"] }
+async-trait = "0.1"
+async-stream = "0.3"
+
+# Search
+tantivy = "0.22"
+meilisearch-sdk = "0.27"
+
+# Glob matching
+glob-match = "0.2"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+unused_must_use = "deny"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "warn"
+pedantic = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"
+must_use_candidate = "allow"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
+panic = "abort"
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[profile.dev.package.sqlx-macros]
+opt-level = 3

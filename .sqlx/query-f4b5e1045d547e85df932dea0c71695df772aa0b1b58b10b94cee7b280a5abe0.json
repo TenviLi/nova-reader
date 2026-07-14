@@ -1,0 +1,50 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO books (id, title, author, language, format, word_count, file_path, file_hash, library_id, status)\n               VALUES ($1, $2, $3, $4::language, $5::book_format, $6, $7, $8, $9::uuid, 'available')\n               ON CONFLICT (id) DO UPDATE\n               SET word_count = $6, file_hash = $8, updated_at = NOW()",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Varchar",
+        "Varchar",
+        {
+          "Custom": {
+            "name": "language",
+            "kind": {
+              "Enum": [
+                "chinese",
+                "english",
+                "japanese",
+                "korean",
+                "unknown"
+              ]
+            }
+          }
+        },
+        {
+          "Custom": {
+            "name": "book_format",
+            "kind": {
+              "Enum": [
+                "txt",
+                "epub",
+                "pdf",
+                "docx",
+                "markdown",
+                "html",
+                "doc"
+              ]
+            }
+          }
+        },
+        "Int8",
+        "Varchar",
+        "Varchar",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "f4b5e1045d547e85df932dea0c71695df772aa0b1b58b10b94cee7b280a5abe0"
+}

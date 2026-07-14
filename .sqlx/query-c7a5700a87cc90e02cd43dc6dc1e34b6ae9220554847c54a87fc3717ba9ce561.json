@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT 1 AS \"locked!\"\n               FROM pg_advisory_xact_lock(\n                 hashtextextended(COALESCE($1::uuid::text, '__all_libraries__'), 0)\n               )",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "locked!",
+        "type_info": "Int4"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "c7a5700a87cc90e02cd43dc6dc1e34b6ae9220554847c54a87fc3717ba9ce561"
+}

@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE bookmarks artifact\n               SET book_id = $2,\n                   chapter_id = CASE WHEN $4\n                                     THEN mapping.chapter_a_id ELSE mapping.chapter_b_id END,\n                   chapter_index = CASE WHEN $4\n                                        THEN mapping.chapter_a_index ELSE mapping.chapter_b_index END\n               FROM duplicate_chapter_matches mapping\n               WHERE mapping.pair_id = $1\n                 AND artifact.book_id = $3\n                 AND artifact.chapter_id = CASE WHEN $4\n                                                THEN mapping.chapter_b_id ELSE mapping.chapter_a_id END\n                 AND CASE WHEN $4\n                          THEN mapping.chapter_a_id ELSE mapping.chapter_b_id END IS NOT NULL\n                 AND mapping.match_type IN ('conservative', 'layout')\n                 AND mapping.similarity >= 0.999999\n                 AND EXISTS (\n                   SELECT 1\n                   FROM chapter_fingerprints source_fp\n                   JOIN chapter_fingerprints target_fp\n                     ON target_fp.source_content_hash = source_fp.source_content_hash\n                   WHERE source_fp.chapter_id = CASE WHEN $4\n                                                     THEN mapping.chapter_b_id ELSE mapping.chapter_a_id END\n                     AND target_fp.chapter_id = CASE WHEN $4\n                                                    THEN mapping.chapter_a_id ELSE mapping.chapter_b_id END\n                 )",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid",
+        "Uuid",
+        "Bool"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "67029d5bdff64e273e95acfc9ece3b873473e45d9acb69d67085e46d0e9e8636"
+}

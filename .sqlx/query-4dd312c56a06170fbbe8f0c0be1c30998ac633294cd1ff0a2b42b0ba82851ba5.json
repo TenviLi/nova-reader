@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE duplicate_pairs\n               SET stale = TRUE, updated_at = NOW()\n               WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "4dd312c56a06170fbbe8f0c0be1c30998ac633294cd1ff0a2b42b0ba82851ba5"
+}

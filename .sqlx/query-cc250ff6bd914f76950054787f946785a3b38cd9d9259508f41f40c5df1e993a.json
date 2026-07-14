@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE duplicate_pairs\n               SET review_status = 'deferred', resolved = FALSE,\n                   resolution = NULL, resolved_by = $2,\n                   resolved_at = NOW(), updated_at = NOW()\n               WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "cc250ff6bd914f76950054787f946785a3b38cd9d9259508f41f40c5df1e993a"
+}

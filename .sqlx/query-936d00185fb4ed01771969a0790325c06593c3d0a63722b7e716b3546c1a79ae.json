@@ -1,0 +1,30 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT a.book_id AS a, b.book_id AS b\n               FROM book_fingerprints a\n               JOIN book_fingerprints b\n                 ON a.book_id < b.book_id\n                AND a.normalization_version = b.normalization_version\n                AND a.conservative_hash = b.conservative_hash\n               WHERE a.book_id = ANY($1) AND b.book_id = ANY($1)\n                 AND a.char_count > 0 AND b.char_count > 0\n                 AND ($2::uuid[] IS NULL OR a.book_id = ANY($2) OR b.book_id = ANY($2))\n               LIMIT $3",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "a",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "b",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "UuidArray",
+        "UuidArray",
+        "Int8"
+      ]
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "936d00185fb4ed01771969a0790325c06593c3d0a63722b7e716b3546c1a79ae"
+}

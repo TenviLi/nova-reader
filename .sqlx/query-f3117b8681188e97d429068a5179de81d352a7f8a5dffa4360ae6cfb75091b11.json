@@ -1,0 +1,19 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE dedup_scan_runs\n           SET status = 'completed', progress = 100, progress_message = $6,\n               pairs_found = $2, exact_pairs = $3, contained_pairs = $4,\n               semantic_pairs = $5, completed_at = NOW(), updated_at = NOW()\n           WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Int4",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "f3117b8681188e97d429068a5179de81d352a7f8a5dffa4360ae6cfb75091b11"
+}

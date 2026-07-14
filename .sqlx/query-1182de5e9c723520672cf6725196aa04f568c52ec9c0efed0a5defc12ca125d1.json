@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO task_execution_locks (task_id, resource_key, mode)\n                   VALUES ($1, $2, $3)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Text",
+        "Varchar"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "1182de5e9c723520672cf6725196aa04f568c52ec9c0efed0a5defc12ca125d1"
+}

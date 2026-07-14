@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "DELETE FROM shelves WHERE id = $1 AND is_system = FALSE",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "327294c8a54218e1e9ba1d6e66921199a3cd8d1cfa65081631b3681fcce3dca2"
+}

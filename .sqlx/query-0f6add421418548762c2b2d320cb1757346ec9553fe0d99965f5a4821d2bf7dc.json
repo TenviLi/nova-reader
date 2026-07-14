@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "DELETE FROM passage_fingerprints WHERE book_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "0f6add421418548762c2b2d320cb1757346ec9553fe0d99965f5a4821d2bf7dc"
+}

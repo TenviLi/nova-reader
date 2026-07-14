@@ -1,0 +1,67 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT b.title, b.author, b.format, b.language\n        FROM books b\n        JOIN collection_books cb ON cb.book_id = b.id\n        WHERE cb.collection_id = $1\n        ORDER BY b.title",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "title",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "author",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "format",
+        "type_info": {
+          "Custom": {
+            "name": "book_format",
+            "kind": {
+              "Enum": [
+                "txt",
+                "epub",
+                "pdf",
+                "docx",
+                "markdown",
+                "html"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 3,
+        "name": "language",
+        "type_info": {
+          "Custom": {
+            "name": "language",
+            "kind": {
+              "Enum": [
+                "chinese",
+                "english",
+                "japanese",
+                "korean",
+                "unknown"
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "ae731b5d5a7d546d51e3f97d0c81d11a1ceb86542dbe00921e757fe98b389c17"
+}

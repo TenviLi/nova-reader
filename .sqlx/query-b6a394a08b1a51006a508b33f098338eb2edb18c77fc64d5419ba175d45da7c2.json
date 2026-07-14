@@ -1,0 +1,16 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE dedup_scan_runs\n                   SET include_semantic = $2, books_total = $3, updated_at = NOW()\n                   WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Bool",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "b6a394a08b1a51006a508b33f098338eb2edb18c77fc64d5419ba175d45da7c2"
+}

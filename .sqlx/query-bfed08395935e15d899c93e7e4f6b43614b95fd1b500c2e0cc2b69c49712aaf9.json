@@ -1,0 +1,106 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT p.review_status, p.stale, p.recommended_primary_id,\n                      p.book_a_id, p.book_b_id,\n                      a.library_id AS book_a_library_id,\n                      b.library_id AS book_b_library_id,\n                      a.title AS book_a_title, b.title AS book_b_title,\n                      a.author AS book_a_author, b.author AS book_b_author,\n                      a.work_id AS book_a_work_id, b.work_id AS book_b_work_id,\n                      p.algorithm_version, p.evidence\n               FROM duplicate_pairs p\n               JOIN books a ON a.id = p.book_a_id\n               JOIN books b ON b.id = p.book_b_id\n               WHERE p.id = $1\n               FOR UPDATE OF p, a, b",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "review_status",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "stale",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 2,
+        "name": "recommended_primary_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 3,
+        "name": "book_a_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 4,
+        "name": "book_b_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 5,
+        "name": "book_a_library_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 6,
+        "name": "book_b_library_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 7,
+        "name": "book_a_title",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 8,
+        "name": "book_b_title",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 9,
+        "name": "book_a_author",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 10,
+        "name": "book_b_author",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 11,
+        "name": "book_a_work_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 12,
+        "name": "book_b_work_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 13,
+        "name": "algorithm_version",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 14,
+        "name": "evidence",
+        "type_info": "Jsonb"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      true,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "bfed08395935e15d899c93e7e4f6b43614b95fd1b500c2e0cc2b69c49712aaf9"
+}

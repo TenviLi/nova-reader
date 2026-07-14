@@ -1,0 +1,89 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT s.id, s.name, s.sort_name, s.folder_path, s.status, s.cover_path,\n               s.created_at, s.updated_at,\n               COUNT(b.id) as \"book_count!\",\n               COALESCE(SUM(b.word_count), 0) as \"total_word_count!\"\n        FROM series s\n        LEFT JOIN books b ON b.series_id = s.id\n        WHERE s.library_id = $1\n        GROUP BY s.id\n        ORDER BY s.sort_name\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "sort_name",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 3,
+        "name": "folder_path",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 4,
+        "name": "status",
+        "type_info": {
+          "Custom": {
+            "name": "series_status",
+            "kind": {
+              "Enum": [
+                "ongoing",
+                "completed",
+                "hiatus",
+                "abandoned",
+                "unknown"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 5,
+        "name": "cover_path",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 6,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 7,
+        "name": "updated_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 8,
+        "name": "book_count!",
+        "type_info": "Int8"
+      },
+      {
+        "ordinal": 9,
+        "name": "total_word_count!",
+        "type_info": "Numeric"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      null,
+      null
+    ]
+  },
+  "hash": "e8da093063199ea52437543bcbbb7d2593abbf87eba042ba30f9e6f98e2a79c3"
+}

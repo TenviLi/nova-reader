@@ -1,0 +1,228 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════
+   Nova Reader Design System
+   A sophisticated dark-first color system inspired by literary elegance.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ─── Color Palette ─────────────────────────────────────────── */
+  --color-ink-50: #fafaf9;
+  --color-ink-100: #f5f5f4;
+  --color-ink-200: #e7e5e4;
+  --color-ink-300: #d6d3d1;
+  --color-ink-400: #a8a29e;
+  --color-ink-500: #78716c;
+  --color-ink-600: #57534e;
+  --color-ink-700: #44403c;
+  --color-ink-800: #292524;
+  --color-ink-900: #1c1917;
+  --color-ink-950: #0c0a09;
+
+  /* Warm parchment tones for reading */
+  --color-parchment-50: #fefdfb;
+  --color-parchment-100: #fdf8f0;
+  --color-parchment-200: #faf0de;
+  --color-parchment-300: #f5e6c8;
+  --color-parchment-400: #e8d5a3;
+
+  /* Accent: deep amber/gold */
+  --color-accent-400: #f59e0b;
+  --color-accent-500: #d97706;
+  --color-accent-600: #b45309;
+
+  /* Semantic: status */
+  --color-success: #22c55e;
+  --color-warning: #eab308;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* Highlight colors for annotations */
+  --color-highlight-yellow: #fef08a;
+  --color-highlight-green: #bbf7d0;
+  --color-highlight-blue: #bfdbfe;
+  --color-highlight-pink: #fbcfe8;
+  --color-highlight-purple: #e9d5ff;
+  --color-highlight-orange: #fed7aa;
+
+  /* ─── Typography ────────────────────────────────────────────── */
+  --font-sans: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+  --font-serif: 'Noto Serif SC', 'Source Han Serif SC', 'Georgia', serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ─── Spacing Scale ─────────────────────────────────────────── */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* ─── Shadows ───────────────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 20px rgb(217 119 6 / 0.15);
+}
+
+/* ─── Base Styles ───────────────────────────────────────────────── */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-ink-950);
+  color: var(--color-ink-100);
+  min-height: 100vh;
+}
+
+/* ─── Scrollbar Styling ─────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-ink-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-600);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-500);
+}
+
+/* ─── Reader-specific styles ────────────────────────────────────── */
+.reader-content {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--color-parchment-100);
+}
+
+.reader-content p {
+  text-indent: 2em;
+  margin-bottom: 0.5em;
+}
+
+/* Entity highlights in reader */
+.entity-highlight {
+  border-bottom: 2px dotted var(--color-accent-400);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.entity-highlight:hover {
+  background-color: rgb(245 158 11 / 0.15);
+}
+
+/* ─── Animations ────────────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(1rem); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+@keyframes loading-bar {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ─── Focus & Accessibility ─────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-accent-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Keyboard navigation: show focus rings only for keyboard users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─── Dark Theme Layer Separation ───────────────────────────────── */
+/* Subtle elevation hierarchy via background opacity */
+.surface-0 { background: var(--color-ink-950); }
+.surface-1 { background: color-mix(in srgb, var(--color-ink-900) 80%, transparent); }
+.surface-2 { background: color-mix(in srgb, var(--color-ink-800) 60%, transparent); }
+
+/* Dividers with subtle warm tint */
+.divider-soft {
+  border-color: color-mix(in srgb, var(--color-ink-700) 50%, transparent);
+}
+
+/* ─── Selection ─────────────────────────────────────────────────── */
+::selection {
+  background: rgb(245 158 11 / 0.3);
+  color: var(--color-ink-50);
+}
+
+/* ─── Light Theme ───────────────────────────────────────────────── */
+/* mode-watcher sets class="light" or class="dark" on <html> */
+html[data-theme="light"],
+html.light {
+  color-scheme: light;
+
+  --color-ink-50: #1c1917;
+  --color-ink-100: #292524;
+  --color-ink-200: #44403c;
+  --color-ink-300: #57534e;
+  --color-ink-400: #78716c;
+  --color-ink-500: #a8a29e;
+  --color-ink-600: #d6d3d1;
+  --color-ink-700: #e7e5e4;
+  --color-ink-800: #f5f5f4;
+  --color-ink-900: #fafaf9;
+  --color-ink-950: #ffffff;
+
+  --color-accent-400: #d97706;
+  --color-accent-500: #b45309;
+  --color-accent-600: #92400e;
+}
+
+html[data-theme="light"] body,
+html.light body {
+  background-color: #fafaf9;
+  color: #292524;
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-track,
+html.light ::-webkit-scrollbar-track {
+  background: #f5f5f4;
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-thumb,
+html.light ::-webkit-scrollbar-thumb {
+  background: #d6d3d1;
+}
+
+html[data-theme="light"] ::selection,
+html.light ::selection {
+  background: rgb(217 119 6 / 0.2);
+  color: #1c1917;
+}

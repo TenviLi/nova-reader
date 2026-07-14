@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE dedup_scan_runs SET candidates_found = $2, updated_at = NOW() WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "29cddf044bf1d88ace5a490cbca5e310a045f8307ed63b7254b41fc9c359a7d3"
+}

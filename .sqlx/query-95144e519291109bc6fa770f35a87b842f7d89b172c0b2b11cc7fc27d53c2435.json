@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT source_term, target_term FROM glossary_entries WHERE book_id = $1 LIMIT 100",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "source_term",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "target_term",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "95144e519291109bc6fa770f35a87b842f7d89b172c0b2b11cc7fc27d53c2435"
+}

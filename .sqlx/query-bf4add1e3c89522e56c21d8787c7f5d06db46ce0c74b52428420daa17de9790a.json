@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "DELETE FROM chapter_fingerprints WHERE book_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "bf4add1e3c89522e56c21d8787c7f5d06db46ce0c74b52428420daa17de9790a"
+}

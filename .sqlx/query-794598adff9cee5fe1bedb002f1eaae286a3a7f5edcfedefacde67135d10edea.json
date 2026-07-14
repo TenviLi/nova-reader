@@ -1,0 +1,116 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "WITH candidate AS (\n                 SELECT t.id\n                 FROM tasks t\n                 WHERE t.status = 'queued'\n                   AND t.scheduled_at <= NOW()\n                   AND NOT EXISTS (\n                       SELECT 1 FROM task_dependencies td\n                       JOIN tasks dep ON dep.id = td.depends_on\n                       WHERE td.task_id = t.id AND dep.status != 'completed'\n                   )\n                   AND NOT EXISTS (\n                       SELECT 1\n                       FROM task_execution_locks requested_lock\n                       JOIN task_execution_locks blocking_lock\n                         ON blocking_lock.resource_key = requested_lock.resource_key\n                        AND blocking_lock.task_id != requested_lock.task_id\n                        AND (\n                          requested_lock.mode = 'exclusive'\n                          OR blocking_lock.mode = 'exclusive'\n                        )\n                       JOIN tasks blocking_task ON blocking_task.id = blocking_lock.task_id\n                       WHERE requested_lock.task_id = t.id\n                         AND blocking_task.status IN (\n                           'queued'::task_status,\n                           'running'::task_status,\n                           'retrying'::task_status\n                         )\n                         AND (\n                           blocking_task.created_at < t.created_at\n                           OR (\n                             blocking_task.created_at = t.created_at\n                             AND blocking_task.id < t.id\n                           )\n                         )\n                   )\n                 ORDER BY t.priority DESC, t.scheduled_at ASC\n                 LIMIT 1\n                 FOR UPDATE OF t SKIP LOCKED\n             )\n             UPDATE tasks claimed\n             SET status = 'running'::task_status,\n                 started_at = COALESCE(claimed.started_at, NOW()),\n                 error_message = NULL\n             FROM candidate\n             WHERE claimed.id = candidate.id\n             RETURNING claimed.id, claimed.kind::text AS \"kind!\",\n                       claimed.status::text AS \"status!\",\n                       claimed.priority::text AS \"priority!\", claimed.payload,\n                       claimed.result, claimed.error_message, claimed.retry_count,\n                       claimed.max_retries, claimed.book_id,\n                       claimed.category AS \"category!\",\n                       claimed.progress, claimed.progress_message,\n                       claimed.scheduled_at, claimed.started_at,\n                       claimed.completed_at, claimed.created_at",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "kind!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 2,
+        "name": "status!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 3,
+        "name": "priority!",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 4,
+        "name": "payload",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 5,
+        "name": "result",
+        "type_info": "Jsonb"
+      },
+      {
+        "ordinal": 6,
+        "name": "error_message",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 7,
+        "name": "retry_count",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 8,
+        "name": "max_retries",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 9,
+        "name": "book_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 10,
+        "name": "category!",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 11,
+        "name": "progress",
+        "type_info": "Int2"
+      },
+      {
+        "ordinal": 12,
+        "name": "progress_message",
+        "type_info": "Text"
+      },
+      {
+        "ordinal": 13,
+        "name": "scheduled_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 14,
+        "name": "started_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 15,
+        "name": "completed_at",
+        "type_info": "Timestamptz"
+      },
+      {
+        "ordinal": 16,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      false,
+      null,
+      null,
+      null,
+      false,
+      true,
+      true,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      false,
+      true,
+      true,
+      false
+    ]
+  },
+  "hash": "794598adff9cee5fe1bedb002f1eaae286a3a7f5edcfedefacde67135d10edea"
+}

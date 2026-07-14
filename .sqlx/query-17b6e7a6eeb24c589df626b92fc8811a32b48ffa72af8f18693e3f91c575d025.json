@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE book_works\n               SET primary_book_id = $2, updated_at = NOW()\n               WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "17b6e7a6eeb24c589df626b92fc8811a32b48ffa72af8f18693e3f91c575d025"
+}

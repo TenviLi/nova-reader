@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE libraries SET scan_status = 'scanning' WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "53e296d96bccbd8c5e66b1e0942038cbd9216441f71ae9822e03a91363b29a89"
+}

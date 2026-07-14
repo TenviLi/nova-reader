@@ -1,0 +1,23 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT root_path FROM libraries WHERE root_path LIKE $1 OR $2 LIKE root_path || '%'",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "root_path",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "2cd39715b014bb2ca626f76f361169a5d2ca38a450bcb7e4819cd253156e0aa4"
+}

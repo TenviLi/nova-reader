@@ -1,0 +1,66 @@
+# Rust
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# Node / Frontend
+node_modules/
+.svelte-kit/
+build/
+dist/
+.vite/
+*.local
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+._*
+
+# Database
+*.db
+*.sqlite
+data/
+
+# Docker volumes
+docker-data/
+postgres-data/
+redis-data/
+qdrant-data/
+neo4j-data/
+meilisearch-data/
+
+# Logs
+/logs/
+*.log
+
+# Test coverage
+coverage/
+.nyc_output/
+htmlcov/
+apps/web/test-results/
+apps/web/playwright-report/
+
+# Build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Backup files
+*.bak
+*.orig
+*.tmp
+~$*

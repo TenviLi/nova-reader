@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "DELETE FROM annotations WHERE id = $1 AND book_id = $2",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Uuid",
+        "Uuid"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "b2daafc93e088dcf1929ad0a0ff031c81bb64bd9f61bfe28884994cb5930715e"
+}

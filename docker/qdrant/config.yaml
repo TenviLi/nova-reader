@@ -1,0 +1,13 @@
+storage:
+  optimizers:
+    default_segment_number: 4
+    indexing_threshold: 20000
+  
+service:
+  max_search_threads: 4
+  
+# Optimized for Apple Silicon unified memory
+hnsw_index:
+  m: 16
+  ef_construct: 128
+  full_scan_threshold: 10000

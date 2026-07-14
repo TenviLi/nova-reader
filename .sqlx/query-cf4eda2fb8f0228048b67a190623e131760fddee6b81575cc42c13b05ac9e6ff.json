@@ -1,0 +1,28 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT book_a_id, book_b_id\n               FROM duplicate_pairs\n               WHERE id = $1 AND stale = FALSE",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "book_a_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "book_b_id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      false
+    ]
+  },
+  "hash": "cf4eda2fb8f0228048b67a190623e131760fddee6b81575cc42c13b05ac9e6ff"
+}

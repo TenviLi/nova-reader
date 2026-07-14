@@ -1,0 +1,34 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT id, chapter_index, content\n               FROM chapters\n               WHERE book_id = $1\n               ORDER BY chapter_index",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 1,
+        "name": "chapter_index",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 2,
+        "name": "content",
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Uuid"
+      ]
+    },
+    "nullable": [
+      false,
+      true,
+      false
+    ]
+  },
+  "hash": "a26b9d2a7e2a030a9ad0ba37d2f572b86866cb4e70f3f75fcb7cfccf0c7f8db4"
+}

@@ -1,0 +1,22 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT collection_id FROM collection_shares WHERE token = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "collection_id",
+        "type_info": "Uuid"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "5b24ba5db70fb332d7aecb0b6ff9490b8b56fe5cd3789590c17bbef17488e15e"
+}

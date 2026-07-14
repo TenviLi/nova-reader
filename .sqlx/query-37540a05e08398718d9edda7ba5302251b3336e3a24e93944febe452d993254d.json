@@ -1,0 +1,20 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n        SELECT COALESCE(SUM(duration_secs) / 60, 0) as \"mins!\"\n        FROM reading_sessions\n        WHERE started_at >= CURRENT_DATE - INTERVAL '6 days'\n        GROUP BY DATE(started_at)\n        ORDER BY DATE(started_at)\n        ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "mins!",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": []
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "37540a05e08398718d9edda7ba5302251b3336e3a24e93944febe452d993254d"
+}
